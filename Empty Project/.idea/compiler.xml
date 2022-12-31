@@ -9,6 +9,7 @@
         <module name="Java with Mysql" />
         <module name="Aggregation Composition" />
         <module name="Sample" />
+        <module name="Empty Project" />
         <module name="Sample 2" />
         <module name="Connecting with Databases (JDBC)" />
       </profile>
