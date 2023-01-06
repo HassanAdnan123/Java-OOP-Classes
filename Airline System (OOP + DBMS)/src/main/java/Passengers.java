@@ -2,29 +2,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Flights extends Database{
+class Passengers extends Database{
 
-    Flights(){
-        tableName = "flights";
-        columns = new String[]{"name","serial_no","engine_no"};
+    Passengers(){
+        tableName = "passengers";
+        columns = new String[] {"name","cnic"};
     }
 
 
     void add() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Flight Name: ");
+        System.out.println("Passenger Name: ");
         String name = sc.nextLine();
-        System.out.println("Serial Number: ");
-        String serial_no = sc.nextLine();
-        System.out.println("Engine Number: ");
-        String engine_no = sc.nextLine();
+        System.out.println("CNIC: ");
+        String cnic = sc.nextLine();
 
         super.openConnection();
         Statement sql = con.createStatement();
-        sql.execute(String.format("insert into "+tableName+" (name, serial_no, engine_no) values ('%s','%s','%s')",name,serial_no,engine_no));
+        sql.execute(String.format("insert into "+tableName+getQueryableColumns(),name,cnic));
         System.out.println("Insertion success.");
         super.closeConnection();
     }
+
 
     void view() throws SQLException {
         super.view();
@@ -37,28 +36,25 @@ public class Flights extends Database{
         String id = sc.nextLine();
 
         System.out.println("Updating data for ID: " + id.toString());
-        System.out.println("Flight Name: ");
+        System.out.println("Passenger Name: ");
         String name = sc.nextLine();
-        System.out.println("Serial Number: ");
-        String serial_no = sc.nextLine();
-        System.out.println("Engine Number: ");
-        String engine_no = sc.nextLine();
+        System.out.println("CNIC: ");
+        String cnic = sc.nextLine();
 
         super.openConnection();
         Statement sql = con.createStatement();
-        sql.execute(String.format("update "+ tableName +
+        sql.execute(String.format("update " + tableName +
                 " set name = '%s', " +
-                " serial_no = '%s', " +
-                " engine_no = '%s' " +
-                " where id = %s",name,serial_no,engine_no, id));
+                " cnic = '%s', " +
+                " where id = %s", name, cnic, id));
         System.out.println("Update success.");
         super.closeConnection();
 
         super.view();
-
     }
 
     void delete() throws SQLException {
         super.delete();
     }
+
 }

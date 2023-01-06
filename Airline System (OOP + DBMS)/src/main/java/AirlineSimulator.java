@@ -1,10 +1,15 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class Main {
+public class AirlineSimulator {
     public static void main(String[] args) throws SQLException {
         Flights F = new Flights();
-        F.delete();
+        Passengers P = new Passengers();
+        Tickets T = new Tickets();
+        System.out.println(F.getQueryableColumns());
+        System.out.println(P.getQueryableColumns());
+        System.out.println(T.getQueryableColumns());
+        P.add();
     }
 }
 
@@ -12,6 +17,7 @@ class Database {
     Connection con;
     String databaseName = "airline_system";
     public String tableName = "";
+    public String[] columns;
 
     void openConnection() throws SQLException {
         try {
@@ -41,6 +47,26 @@ class Database {
         }
         System.out.println("----------------------------------------------");
         closeConnection();
+    }
+
+    String getQueryableColumns(){
+        String startStr = "(";          // (name,ticket,cnic) values ('%s','%s')
+        String colNames = "";           //
+        String middleStr = ") values (";//
+        String valueStr = "";           //
+        String endStr = ")";            //
+
+
+        for(int i=0 ; i < columns.length ; i++){
+            colNames += columns[i];
+            valueStr += "'%s'";
+
+            if((i != columns.length-1)) {
+                colNames += ",";
+                valueStr += ",";
+            }
+        }
+        return startStr + colNames + middleStr + valueStr + endStr;
     }
 
     void update() throws SQLException {
