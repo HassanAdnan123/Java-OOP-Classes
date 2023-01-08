@@ -3,13 +3,12 @@ import java.util.Scanner;
 
 public class AirlineSimulator {
     public static void main(String[] args) throws SQLException {
-        Flights F = new Flights();
-        Passengers P = new Passengers();
+
         Tickets T = new Tickets();
-        System.out.println(F.getQueryableColumns());
-        System.out.println(P.getQueryableColumns());
-        System.out.println(T.getQueryableColumns());
-        P.add();
+        T.view();
+        T.add();
+        T.view();
+
     }
 }
 
@@ -43,7 +42,7 @@ class Database {
         System.out.println("----------------------------------------------");
         System.out.println("------------- "+tableName+".sql -------------");
         while (views.next()) {
-            System.out.println(views.getInt(1) + "\t" + views.getString(2) + "\t" + views.getString(3) + "\t" + views.getString(4));
+            System.out.println(views.getInt(1) + "\t" + views.getString(2) + "\t");
         }
         System.out.println("----------------------------------------------");
         closeConnection();
