@@ -3,20 +3,21 @@ import java.util.Scanner;
 
 public class AirlineSimulator {
     public static void main(String[] args) throws SQLException {
+        Flights F = new Flights();
+        F.view();
+        Passengers P =  new Passengers();
+        P.view();
 
-        Tickets T = new Tickets();
-        T.view();
-        T.add();
-        T.view();
 
     }
 }
 
-class Database {
+abstract class Database {
     Connection con;
     String databaseName = "airline_system";
     public String tableName = "";
     public String[] columns;
+    public String[] columnData;
 
     void openConnection() throws SQLException {
         try {
@@ -32,7 +33,19 @@ class Database {
     }
 
     void add() throws SQLException {
-        System.out.println("Please inherit me from other child classes");
+        view();
+        System.out.println(String.format("------ Adding ** %s ** ------",tableName));
+        Scanner sc = new Scanner(System.in);
+        for(int i=0; i < columnData.length; i++){
+            System.out.println("Please enter "+columns[i]);
+            columnData[i] = sc.nextLine();
+        }
+        openConnection();
+        Statement sql = con.createStatement();
+        sql.execute(String.format("insert into "+tableName+getQueryableColumnsForAdd()));
+        System.out.println("Insertion success.");
+        closeConnection();
+        view();
     }
 
     void view() throws SQLException {
@@ -42,13 +55,17 @@ class Database {
         System.out.println("----------------------------------------------");
         System.out.println("------------- "+tableName+".sql -------------");
         while (views.next()) {
-            System.out.println(views.getInt(1) + "\t" + views.getString(2) + "\t");
+            String printRow = String.valueOf(views.getInt(1));
+            for(int i=0; i<columns.length; i++){
+                printRow += "\t " + views.getString(i+2);
+            }
+            System.out.println(printRow);
         }
         System.out.println("----------------------------------------------");
         closeConnection();
     }
 
-    String getQueryableColumns(){
+    String getQueryableColumnsForAdd(){
         String startStr = "(";          // (name,ticket,cnic) values ('%s','%s')
         String colNames = "";           //
         String middleStr = ") values (";//
@@ -58,7 +75,7 @@ class Database {
 
         for(int i=0 ; i < columns.length ; i++){
             colNames += columns[i];
-            valueStr += "'%s'";
+            valueStr += "'" + columnData[i] +"'";
 
             if((i != columns.length-1)) {
                 colNames += ",";
@@ -68,8 +85,45 @@ class Database {
         return startStr + colNames + middleStr + valueStr + endStr;
     }
 
+    String getQueryableColumnsForUpdate(String id){
+        String startStr = "update " + tableName + " set ";
+        String colNames = "";
+        String endStr = "where id = "+ id;
+
+
+        for(int i=0 ; i < columns.length ; i++){
+            colNames += columns[i] + " = '" + columnData[i] + "' ";
+
+            if((i != columns.length-1)) {
+                colNames += ", ";
+            }
+        }
+        return startStr + colNames + endStr;
+    }
+
     void update() throws SQLException {
-        System.out.println("Please inherit me from other child classes");
+        view();
+        String id;
+        System.out.println(String.format("------ Updating ** %s ** ------",tableName));
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter ID of item: ");
+        id = sc.nextLine();
+
+        for(int i=0; i < columnData.length; i++){
+            System.out.println("Please enter "+columns[i]);
+            columnData[i] = sc.nextLine();
+        }
+
+        openConnection();
+        Statement sql = con.createStatement();
+//        sql.execute(String.format("update " + tableName +
+//                " set name = '%s', " +
+//                " cnic = '%s', " +
+//                " where id = %s", name, cnic, id));
+        sql.execute(getQueryableColumnsForUpdate(id));
+        System.out.println("Update success.");
+        closeConnection();
+        view();
     }
 
     void delete() throws SQLException {
