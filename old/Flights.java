@@ -1,11 +1,13 @@
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
 
-class Flights extends Database{
+public class Flights extends Database{
 
     Flights(){
-        setTableName("flights");
-        setColumns(new String[] {"name","serial_no","engine_no"});
-        setColumnData(new String[3]);
+        tableName = "flights";
+        columns = new String[]{"name","serial_no","engine_no"};
+        columnData = new String[3];
     }
 
 
@@ -29,6 +31,7 @@ class Flights extends Database{
     void view() throws SQLException {
         super.view();
     }
+
     void update() throws SQLException {
 //        super.view();
 //        Scanner sc = new Scanner(System.in);
@@ -45,20 +48,19 @@ class Flights extends Database{
 //
 //        super.openConnection();
 //        Statement sql = con.createStatement();
-//        sql.execute(String.format("update " + tableName +
+//        sql.execute(String.format("update "+ tableName +
 //                " set name = '%s', " +
 //                " serial_no = '%s', " +
 //                " engine_no = '%s' " +
-//                " where id = %s", name, serial_no, engine_no, id));
+//                " where id = %s",name,serial_no,engine_no, id));
 //        System.out.println("Update success.");
 //        super.closeConnection();
-//
-//        super.view();
+
         super.update();
+
     }
 
     void delete() throws SQLException {
         super.delete();
     }
-
 }

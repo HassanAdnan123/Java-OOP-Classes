@@ -1,30 +1,20 @@
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
 
 class Passengers extends Database{
 
     Passengers(){
-        setTableName("passengers");
-        setColumns(new String[] {"name","cnic"});
-        setColumnData(new String[2]);
+        tableName = "passengers";
+        columns = new String[] {"name","cnic"};
+        columnData = new String[2];
     }
-
-
 
 
     void add() throws SQLException {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Passenger Name: ");
-//        String name = sc.nextLine();
-//        System.out.println("CNIC: ");
-//        String cnic = sc.nextLine();
-//
-//        super.openConnection();
-//        Statement sql = con.createStatement();
-//        sql.execute(String.format("insert into "+tableName+" (name,cnic) values ('%s','%s')",name,cnic));
-//        System.out.println("Insertion success.");
-//        super.closeConnection();
         super.add();
     }
+
 
     void view() throws SQLException {
         super.view();
