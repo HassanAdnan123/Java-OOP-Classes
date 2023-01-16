@@ -6,12 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Java with Mysql" />
-        <module name="Aggregation Composition" />
-        <module name="Sample" />
-        <module name="Airline System (OOP + DBMS)" />
-        <module name="Sample 2" />
         <module name="Connecting with Databases (JDBC)" />
+        <module name="Java with Mysql" />
+        <module name="Sample" />
+        <module name="Sample 2" />
+        <module name="Aggregation Composition" />
+        <module name="Airline System (OOP + DBMS)" />
       </profile>
     </annotationProcessing>
   </component>

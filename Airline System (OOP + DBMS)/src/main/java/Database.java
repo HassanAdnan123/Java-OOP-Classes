@@ -59,21 +59,21 @@ abstract class Database {
         closeConnection();
         view();    }
 
-    void view() throws SQLException {
+    ResultSet view() throws SQLException {
         openConnection();
         Statement sql = con.createStatement();
         ResultSet views = sql.executeQuery("select * from " + tableName + " ");
-        System.out.println("----------------------------------------------");
-        System.out.println("------------- "+tableName+".sql -------------");
-        while (views.next()) {
-            String printRow = String.valueOf(views.getInt(1));
-            for(int i=0; i<columns.length; i++){
-                printRow += "\t " + views.getString(i+2);
-            }
-            System.out.println(printRow);
-        }
-        System.out.println("----------------------------------------------");
-        closeConnection();
+//        System.out.println("----------------------------------------------");
+//        System.out.println("------------- "+tableName+".sql -------------");
+//        while (views.next()) {
+//            String printRow = String.valueOf(views.getInt(1));
+//            for(int i=0; i<columns.length; i++){
+//                printRow += "\t " + views.getString(i+2);
+//            }
+//            System.out.println(printRow);
+//        }
+//        System.out.println("----------------------------------------------");
+        return views;
     }
 
     String getQueryableColumnsForAdd(){

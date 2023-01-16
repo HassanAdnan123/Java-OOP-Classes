@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 class Flights extends Database{
@@ -26,8 +28,8 @@ class Flights extends Database{
         super.add();
     }
 
-    void view() throws SQLException {
-        super.view();
+    ResultSet view() throws SQLException {
+        return super.view();
     }
     void update() throws SQLException {
 //        super.view();

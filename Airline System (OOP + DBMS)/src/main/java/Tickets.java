@@ -52,26 +52,21 @@ class Tickets extends Database{
         super.closeConnection();
     }
 
-    void view() throws SQLException {
+    ResultSet view() throws SQLException {
         openConnection();
         Statement sql=con.createStatement();
-        ResultSet views= sql.executeQuery("select t.id, p.name, f.name, t.name, s.depart_time, s.arrival_time, l.city_name, l.city_name from tickets t\n" +
-                "\t inner join passengers p on p.id=t.passenger_id \n"+
-                "\t inner join flights f on f.id=t.flight_id \n"+
-                "\t inner join slots s on s.id=t.slot_id \n"+
-                "\t inner join location l on l.id=t.to_location_id \n"+
-                "\t inner join location l on l.id=t.from_location_id \n"+
-                ";");
+        ResultSet views= sql.executeQuery("CALL show_all_tickets()");
         System.out.println("----------------------------------------------");
         System.out.println("------------- "+getTableName()+".sql -------------");
-        //System.out.println("T_ID\t PSNGR_NM\t FL_NM \t TKT_NM \t ARVL \t DEPART");
-        System.out.println("\t");
-        while (views.next()) {
-            System.out.println(views.getInt(1) + "\t" + views.getString(2) + "\t" + views.getString(3) + "\t" + views.getString(4)+ "\t"
-            + views.getString(5)+ "\t" + views.getString(6)+ "\t" + views.getString(7)+ "\t" + views.getString(8));
-        }
-        System.out.println("----------------------------------------------");
-        closeConnection();
+//        //System.out.println("T_ID\t PSNGR_NM\t FL_NM \t TKT_NM \t ARVL \t DEPART");
+//        System.out.println("\t");
+//        while (views.next()) {
+//            System.out.println(views.getInt(1) + "\t" + views.getString(2) + "\t" + views.getString(3) + "\t" + views.getString(4)+ "\t"
+//            + views.getString(5)+ "\t" + views.getString(6)+ "\t" + views.getString(7)+ "\t" + views.getString(8));
+//        }
+//        System.out.println("----------------------------------------------");
+        return views;
+
     }
     void update() throws SQLException {
         super.view();

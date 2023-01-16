@@ -1,3 +1,4 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 class Passengers extends Database{
@@ -26,8 +27,8 @@ class Passengers extends Database{
         super.add();
     }
 
-    void view() throws SQLException {
-        super.view();
+    ResultSet view() throws SQLException {
+        return super.view();
     }
 
     void update() throws SQLException {

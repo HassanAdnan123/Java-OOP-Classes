@@ -1,3 +1,4 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Slots extends Database{
@@ -13,8 +14,8 @@ public class Slots extends Database{
         super.add();
     }
 
-    void view() throws SQLException {
-        super.view();
+    ResultSet view() throws SQLException {
+        return super.view();
     }
     void update() throws SQLException {
         super.update();
